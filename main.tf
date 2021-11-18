@@ -14,6 +14,10 @@ provider "aws" {
   region  = "us-east-1"
 }
 
+locals { 
+  project_name = "terraform-project"
+}
+
 resource "aws_instance" "web_server" {
   ami                    = "ami-083654bd07b5da81d"
   instance_type          = "t2.micro"
@@ -24,7 +28,7 @@ resource "aws_instance" "web_server" {
 	      	           nohup busybox httpd -f -p 8080 &
 	      	           EOF
   tags = {
-    Name = "terraform-example"
+    Name = "WebServer-${local.project_name}"
   }
 }
 
